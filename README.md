@@ -38,6 +38,15 @@ This will open a GUI window like this:
 
 Browse for a local file and enter the other information. Then, you can click the generate command button to get the SCP command in the text widget. You can copy and paste the command in the terminal to run it.
 
+## Build
+You can build an executable file using CX_Freeze for your relevant OS. MAC, Linux and Windows are all supported
+```console
+pip install cx_Freeze
+```
+```console
+python setup.py build
+```
+
 ### Contributing
 If you want to contribute to scp-tool, you can fork the project and create a pull request with your changes. Please follow the code style and documentation guidelines of the project.
 
