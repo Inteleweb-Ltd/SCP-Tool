@@ -6,6 +6,20 @@ from tkinter import filedialog
 root = tk.Tk()
 root.title("SCP Command Generator")
 
+# Create a function to copy the text widget content to the clipboard
+def copy_to_clipboard():
+    # Clear the clipboard
+    root.clipboard_clear()
+    # Append the text widget content to the clipboard
+    root.clipboard_append(text.get(1.0, tk.END))
+
+# Create a button widget to call the function
+copy_button = tk.Button(root, text="Copy to clipboard", command=copy_to_clipboard)
+
+# Pack the button widget in the root window
+copy_button.pack()
+
+
 # Create a function to browse for a local file
 def browse_file():
     # Use filedialog to ask for a file
