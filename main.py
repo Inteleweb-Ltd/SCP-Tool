@@ -7,17 +7,19 @@ root = tk.Tk()
 root.title("SCP Command Generator")
 
 # Create a function to copy the text widget content to the clipboard
-def copy_to_clipboard():
-    # Clear the clipboard
-    root.clipboard_clear()
-    # Append the text widget content to the clipboard
-    root.clipboard_append(text.get(1.0, tk.END))
+def generate_and_copy():
+  file = file_entry.get()
+  directory = dir_entry.get() 
+  host = host_entry.get()
+  user = user_entry.get()
 
-# Create a button widget to call the function
-copy_button = tk.Button(root, text="Copy to clipboard", command=copy_to_clipboard)
-
-# Pack the button widget in the root window
-copy_button.pack()
+  command = f"scp {file} {user}@{host}:{directory}"
+  
+  text.delete(1.0, tk.END)
+  text.insert(1.0, command)
+  
+  root.clipboard_clear()
+  root.clipboard_append(command)
 
 
 # Create a function to browse for a local file
@@ -39,37 +41,29 @@ user_label = tk.Label(root, text="Username:")
 user_entry = tk.Entry(root)
 
 # Create a button widget to generate the command
-button = tk.Button(root, text="Generate command")
+button = tk.Button(root, text="Generate and Copy", command=generate_and_copy)
 
 # Create a text widget to display the command
 text = tk.Text(root, height=2, width=40)
 
-# Define a function to generate the command
-def generate_command():
-    # Get the input values from the entry widgets
-    file = file_entry.get()
-    directory = dir_entry.get()
-    host = host_entry.get()
-    user = user_entry.get()
-    # Format the input values as a SCP command
-    command = f"scp {file} {user}@{host}:{directory}"
-    # Set the text widget text to the command
-    text.delete(1.0, tk.END)
-    text.insert(1.0, command)
-
-# Bind the button widget to the function
-button.config(command=generate_command)
+# Create a function to browse for a local directory
+def browse_directory():
+    # Use filedialog to ask for a directory
+    directory = filedialog.askdirectory()
+    # Set the entry widget text to the directory
+    dir_entry.delete(0, tk.END)
+    dir_entry.insert(0, directory)
 
 # Pack all the widgets in the root window
 file_label.pack()
 file_entry.pack()
-button.pack()
 dir_label.pack()
 dir_entry.pack()
 host_label.pack()
 host_entry.pack()
 user_label.pack()
 user_entry.pack()
+button.pack()
 text.pack()
 
 # Enter the main loop
