@@ -4,14 +4,15 @@ from cx_Freeze import setup, Executable
 # fine tuning.
 build_options = {'packages': [], 'excludes': []}
 
-base = 'console'
+import sys
+base = 'Win32GUI' if sys.platform=='win32' else None
 
 executables = [
-    Executable('main.py', base=base, target_name = 'SCP-Tool')
+    Executable('main.py', icon="src/iweb_icon.ico" , base=base, target_name = 'SCPTool')
 ]
 
-setup(name='SCP Generator',
-      version = '1.0',
+setup(name='SCP-Tool',
+      version = '1.1',
       description = 'A simple Tool in Python to help you make an SCP syntax',
       options = {'build_exe': build_options},
       executables = executables)
